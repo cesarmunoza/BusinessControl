@@ -26,8 +26,13 @@ public class Producto implements Serializable{
 	
 	private String nombre;
 	private String descripcion;
+	
+	@Column(name="valor_compra")
 	private String valorCompra;
+	
+	@Column(name="valor_venta")
 	private String valorVenta;
+	
 	private Integer cantidad;
 	
 	@Column(name="creado_en")
