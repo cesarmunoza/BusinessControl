@@ -14,11 +14,11 @@ public class ProductoController {
 	@Autowired
 	private IProductoDao productoDao;
 	
-	@RequestMapping(value="/listar", method=RequestMethod.GET)
+	@RequestMapping(value="/listarProductos", method=RequestMethod.GET)
 	public String listar(Model model) {
 		model.addAttribute("titulo", "Listado de productos");
 		model.addAttribute("productos", productoDao.findAll());
-		return "listar";
+		return "listarProductos";
 	}
 
 }
