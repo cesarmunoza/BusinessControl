@@ -20,4 +20,11 @@ public class ProductoDaoImpl implements IProductoDao{
 		return em.createQuery("from Producto").getResultList();
 	}
 
+	@Override
+	@Transactional
+	public void save(Producto producto) {
+		em.persist(producto);
+		
+	}
+
 }

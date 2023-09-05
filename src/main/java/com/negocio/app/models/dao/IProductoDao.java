@@ -7,5 +7,7 @@ import com.negocio.app.models.entity.Producto;
 public interface IProductoDao {
 	
 	public List<Producto> findAll();
+	
+	public void save(Producto producto);
 
 }
