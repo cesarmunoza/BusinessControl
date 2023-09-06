@@ -9,7 +9,8 @@ import com.negocio.app.models.entity.Cliente;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Repository
 public class ClienteDaoImpl implements IClienteDao {
 
@@ -26,6 +27,7 @@ public class ClienteDaoImpl implements IClienteDao {
 	@Override
 	@Transactional
 	public void save(Cliente cliente) {
+		log.info("En esta implementación se guarda el cliente", cliente);
 		em.persist(cliente);
 		
 	}
