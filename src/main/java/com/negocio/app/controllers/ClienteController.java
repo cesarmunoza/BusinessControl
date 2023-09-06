@@ -40,7 +40,7 @@ public class ClienteController {
 	
 	@RequestMapping(value="/formClients", method=RequestMethod.POST)	
 	public String guardar(Cliente cliente) {
-		log.info("En esta parte se procesan los datos del formulario y se envían en el submit, ", cliente);
+		log.info("En esta parte se procesan los datos del formulario y se envían en el submit");
 		clienteDao.save(cliente);
 		return "redirect:listarClientes";
 	}
