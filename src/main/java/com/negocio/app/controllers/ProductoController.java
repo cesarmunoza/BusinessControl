@@ -41,6 +41,7 @@ public class ProductoController {
 	@RequestMapping(value="/formProducts", method=RequestMethod.POST)
 	public String guardar(@Valid Producto producto, BindingResult result, Model model) {
 		if (result.hasErrors()) {
+			log.info("Existe algún error que impide que se guarde el producto");
 			model.addAttribute("titulo", "Formulario de producto");
 			return "formProducts";
 		}

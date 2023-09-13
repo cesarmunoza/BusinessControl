@@ -43,8 +43,7 @@ public class Producto implements Serializable{
 	@Column(name="valor_venta")
 	private String valorVenta;
 	
-	@NotNull
-	@Positive
+	@NotNull	
 	private Integer cantidad;
 	
 	@NotNull

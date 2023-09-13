@@ -74,9 +74,11 @@
 					<small class="form-text-danger" th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"></small>
 				</div>
 			</div>
-				<tr>
-					<td><input type="submit" value="Crear producto" class="btn btn-primary"/></td>
-				</tr>
+				<div class="form-group row">
+				<div class="col-sm-6">
+					<input type="submit" value="Crear producto" class="btn btn-primary" />
+				</div>
+			</div>
 			
 			<input type="hidden" th:field="*{id}" />
 		</form>
