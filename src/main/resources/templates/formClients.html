@@ -71,12 +71,14 @@
 				<label class="col-sm-2 col-form-label">Teléfono</label>
 				<div class="col-sm-6">
 					<input type="text" th:field="*{telefono}" class="form-control" th:errorclass="'form-control alert alert-danger'"/>
+					<small class="form-text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Dirección</label>
 				<div class="col-sm-6">
 					<input type="text" th:field="*{direccion}" class="form-control" th:errorclass="'form-control alert alert-danger'"/>
+					<small class="form-text-danger" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></small>
 				</div>
 			</div>
 			<div class="form-group row">
