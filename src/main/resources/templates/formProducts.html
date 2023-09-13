@@ -37,31 +37,47 @@
 			class="text-secondary border border-success border-top-0 border-start-0 border-end-0"></h1>
 
 		<form action="/formProducts" th:object="${producto}" method="post">
-			<table>
-				<tr>
-					<td>Nombre</td>
-					<td><input type="text" th:field="*{nombre}" class="form-control"/></td>
-				</tr>
-				<tr>
-					<td>Descripción</td>
-					<td><input type="text" th:field="*{descripcion}" class="form-control"/></td>
-				</tr>
-				<tr>
-					<td>Valor compra</td>
-					<td><input type="text" th:field="*{valorCompra}" class="form-control"/></td>
-				</tr>
-				<tr>
-					<td>Valor venta</td>
-					<td><input type="text" th:field="*{valorVenta}" class="form-control"/></td>
-				</tr>
-				<tr>
-					<td>Cantidad</td>
-					<td><input type="text" th:field="*{cantidad}" class="form-control"/></td>
-				</tr>
+		
+			
+				<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Nombre</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{nombre}" class="form-control" th:errorclass="'form-control alert alert-danger'"/>
+					<small class="form-text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+				</div>
+			</div>
+				<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Descripción</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{descripcion}" class="form-control" th:errorclass="'form-control alert alert-danger'"/>
+					<small class="form-text-danger" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small>
+				</div>
+			</div>
+				<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Valor compra</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{valorCompra}" class="form-control" th:errorclass="'form-control alert alert-danger'"/>
+					<small class="form-text-danger" th:if="${#fields.hasErrors('valorCompra')}" th:errors="*{valorCompra}"></small>
+				</div>
+			</div>
+				<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Valor venta</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{valorVenta}" class="form-control" th:errorclass="'form-control alert alert-danger'"/>
+					<small class="form-text-danger" th:if="${#fields.hasErrors('valorVenta')}" th:errors="*{valorVenta}"></small>
+				</div>
+			</div>
+				<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Cantidad</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{cantidad}" class="form-control" th:errorclass="'form-control alert alert-danger'"/>
+					<small class="form-text-danger" th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"></small>
+				</div>
+			</div>
 				<tr>
 					<td><input type="submit" value="Crear producto" class="btn btn-primary"/></td>
 				</tr>
-			</table>
+			
 			<input type="hidden" th:field="*{id}" />
 		</form>
 	</div>

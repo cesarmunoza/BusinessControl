@@ -15,6 +15,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Entity
@@ -42,7 +43,8 @@ public class Producto implements Serializable{
 	@Column(name="valor_venta")
 	private String valorVenta;
 	
-	@NotEmpty
+	@NotNull
+	@Positive
 	private Integer cantidad;
 	
 	@NotNull

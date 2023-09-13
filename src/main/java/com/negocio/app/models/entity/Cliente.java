@@ -41,6 +41,8 @@ public class Cliente implements Serializable{
 	
 	@NotEmpty
 	private String telefono;
+	
+	@NotEmpty	
 	private String direccion;
 	
 	@NotNull
