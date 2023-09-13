@@ -15,7 +15,6 @@ import com.negocio.app.models.entity.Cliente;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
 @Controller
 public class ClienteController {
@@ -42,6 +41,7 @@ public class ClienteController {
 	@RequestMapping(value="/formClients", method=RequestMethod.POST)	
 	public String guardar(@Valid Cliente cliente, BindingResult result, Model model) {
 		if (result.hasErrors()) {
+			log.info("Existe algún error que impide que se guarde el producto");
 			model.addAttribute("titulo", "Formulario de Cliente");
 			return "formClients";
 		}
