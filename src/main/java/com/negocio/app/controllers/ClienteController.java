@@ -69,5 +69,13 @@ public class ClienteController {
 		log.info("En esta parte se procesan los datos del formulario y se envían en el submit");
 		return "redirect:listarClientes";
 	}
+	
+	@RequestMapping(value="/eliminar/{id}")
+	public String eliminar(@PathVariable(value="id") Long id) {
+		if (id > 0) {
+			clienteDao.delete(id);
+		}
+		return "redirect:/listarClientes";
+	}
 
 }

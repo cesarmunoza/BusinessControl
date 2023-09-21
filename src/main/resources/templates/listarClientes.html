@@ -49,6 +49,7 @@
 					<th>Dirección</th>
 					<th>Fecha de creación</th>
 					<th>Editar</th>
+					<th>Eliminar</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -61,11 +62,21 @@
 					<td th:text="${cliente.direccion}"></td>
 					<td th:text="${cliente.creadoEn}"></td>
 					<td> <a class="btn btn-primary btn-xs" th:href="@{/formClients/}+${cliente.id}" th:text="Editar"></a></td>
+					<td><a class="btn btn-danger btn-xs" th:href="@{/eliminar/}+${cliente.id}" th:text="Eliminar" onclick="confirmarEliminarCliente();"></a></td>
 				</tr>
 			</tbody>
 
 		</table>
 	</div>
+	<script>
+	function confirmarEliminarCliente() {
+		if(confirm('Seguro que quieres eliminar este cliente?')){
+			return true;
+		}else{
+			return false;
+		}	    
+	  }
+	</script>	
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
 		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

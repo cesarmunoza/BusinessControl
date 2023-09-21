@@ -20,6 +20,12 @@ public class ProductoDaoImpl implements IProductoDao{
 	public List<Producto> findAll() {
 		return em.createQuery("from Producto").getResultList();
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Producto findOne(Long id) {
+		return em.find(Producto.class, id);
+	}
 
 	@Override
 	@Transactional
@@ -33,8 +39,9 @@ public class ProductoDaoImpl implements IProductoDao{
 	}
 
 	@Override
-	public Producto findOne(Long id) {
-		return em.find(Producto.class, id);
+	@Transactional
+	public void delete(Long id) {
+		em.remove(findOne(id));
 	}
 
 }
