@@ -52,13 +52,13 @@
 			</thead>
 			<tbody>
 				<tr th:each="producto: ${productos}">
-					<th th:text="${producto.id}"></th>
-					<th th:text="${producto.nombre}"></th>
-					<th th:text="${producto.descripcion}"></th>
-					<th th:text="${producto.valorCompra}"></th>
-					<th th:text="${producto.valorVenta}"></th>
-					<th th:text="${producto.cantidad}"></th>
-					<th th:text="${producto.creadoEn}"></th>
+					<td th:text="${producto.id}"></td>
+					<td th:text="${producto.nombre}"></td>
+					<td th:text="${producto.descripcion}"></td>
+					<td th:text="${producto.valorCompra}"></td>
+					<td th:text="${producto.valorVenta}"></td>
+					<td th:text="${producto.cantidad}"></td>
+					<td th:text="${producto.creadoEn}"></td>
 				</tr>
 			</tbody>
 
