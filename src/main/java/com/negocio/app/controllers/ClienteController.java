@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -36,6 +37,21 @@ public class ClienteController {
 		model.put("cliente", cliente);		
 		model.put("titulo", "Formulario de Cliente");
 		return "formClients";
+	}
+	
+	@RequestMapping(value="/formClients/{id}")
+	public String editar(@PathVariable(value="id") Long id, Map<String, Object> model) {
+		log.info("Se va a ingresar al formulario de cliente para editarlo");
+		Cliente cliente = null;
+		
+		if (id > 0) {
+			cliente = clienteDao.findOne(id);
+		}else {
+			return "redirect:/listarClientes";
+		}
+		model.put("cliente", cliente);		
+		model.put("titulo", "Editar Cliente");
+	return "formClients";
 	}
 	
 	@RequestMapping(value="/formClients", method=RequestMethod.POST)	
