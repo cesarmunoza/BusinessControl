@@ -44,7 +44,7 @@ public class ProductoController {
 	
 	@RequestMapping(value="/formProducts/{id}")
 	public String editar(@PathVariable(value="id") Long id, Map<String, Object> model) {
-		log.info("Se va a ingresar al formulario de producto para editarlo");
+		log.info("Se va a editar el producto con id: {}", id);
 		Producto producto= null;
 		
 		if (id>0) {
@@ -60,7 +60,7 @@ public class ProductoController {
 	@RequestMapping(value="/formProducts", method=RequestMethod.POST)
 	public String guardar(@Valid Producto producto, BindingResult result, Model model, SessionStatus status) {
 		if (result.hasErrors()) {
-			log.info("Existe algún error que impide que se guarde el producto");
+			log.info("Existe algún error que impide que se guarde el producto para el producto: {}", producto);
 			model.addAttribute("titulo", "Formulario de producto");
 			return "formProducts";
 		}
@@ -74,6 +74,7 @@ public class ProductoController {
 	public String eliminarProducto(@PathVariable(value="id") Long id) {
 		if (id>0) {
 			productoDao.delete(id);
+			log.info("Se borró el producto con id: {}", id);
 		}
 		return "redirect:/listarProductos";
 	}

@@ -44,7 +44,7 @@ public class ClienteController {
 	
 	@RequestMapping(value="/formClients/{id}")
 	public String editar(@PathVariable(value="id") Long id, Map<String, Object> model) {
-		log.info("Se va a ingresar al formulario de cliente para editarlo");
+		log.info("Se va a editar el cliente con id: {}", id);
 		Cliente cliente = null;
 		
 		if (id > 0) {
@@ -60,13 +60,13 @@ public class ClienteController {
 	@RequestMapping(value="/formClients", method=RequestMethod.POST)	
 	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, SessionStatus status) {
 		if (result.hasErrors()) {
-			log.info("Existe algún error que impide que se guarde el producto");
+			log.info("Existe algún error que impide que se guarde el producto para el cliente: {}", cliente);
 			model.addAttribute("titulo", "Formulario de Cliente");
 			return "formClients";
 		}
 		clienteDao.save(cliente);
 		status.setComplete();
-		log.info("En esta parte se procesan los datos del formulario y se envían en el submit");
+		log.info("En esta parte se procesan los datos y se envían en el submit del formulario del cliente: {}", cliente);
 		return "redirect:listarClientes";
 	}
 	
@@ -74,6 +74,7 @@ public class ClienteController {
 	public String eliminarCliente(@PathVariable(value="id") Long id) {
 		if (id > 0) {
 			clienteDao.delete(id);
+			log.info("Se borró el cliente con id: {}", id);
 		}
 		return "redirect:/listarClientes";
 	}
