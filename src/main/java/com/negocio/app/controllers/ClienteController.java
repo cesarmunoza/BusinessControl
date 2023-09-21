@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.negocio.app.models.dao.IClienteDao;
 import com.negocio.app.models.entity.Cliente;
@@ -18,6 +20,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
+@SessionAttributes("cliente")
 public class ClienteController {
 	
 	@Autowired
@@ -55,13 +58,14 @@ public class ClienteController {
 	}
 	
 	@RequestMapping(value="/formClients", method=RequestMethod.POST)	
-	public String guardar(@Valid Cliente cliente, BindingResult result, Model model) {
+	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, SessionStatus status) {
 		if (result.hasErrors()) {
 			log.info("Existe algún error que impide que se guarde el producto");
 			model.addAttribute("titulo", "Formulario de Cliente");
 			return "formClients";
 		}
 		clienteDao.save(cliente);
+		status.setComplete();
 		log.info("En esta parte se procesan los datos del formulario y se envían en el submit");
 		return "redirect:listarClientes";
 	}
