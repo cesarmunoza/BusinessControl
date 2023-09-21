@@ -62,7 +62,7 @@
 					<td th:text="${cliente.direccion}"></td>
 					<td th:text="${cliente.creadoEn}"></td>
 					<td> <a class="btn btn-primary btn-xs" th:href="@{/formClients/}+${cliente.id}" th:text="Editar"></a></td>
-					<td><a class="btn btn-danger btn-xs" th:href="@{/eliminar/}+${cliente.id}" th:text="Eliminar" onclick="confirmarEliminarCliente();"></a></td>
+					<td><a class="btn btn-danger btn-xs" th:href="@{/eliminarCliente/}+${cliente.id}" th:text="Eliminar" onclick="confirmarEliminarCliente();"></a></td>
 				</tr>
 			</tbody>
 
@@ -73,6 +73,7 @@
 		if(confirm('Seguro que quieres eliminar este cliente?')){
 			return true;
 		}else{
+			event.preventDefault();
 			return false;
 		}	    
 	  }

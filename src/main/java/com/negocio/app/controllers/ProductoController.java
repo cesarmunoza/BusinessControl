@@ -67,8 +67,14 @@ public class ProductoController {
 		productoDao.save(producto);
 		status.setComplete();
 		log.info("En esta parte se procesan los datos del formulario y se envían en el submit ");
-		return "redirect:listarProductos";
-		
+		return "redirect:listarProductos";		
 	}
-
+	
+	@RequestMapping(value="/eliminarProducto/{id}")
+	public String eliminarProducto(@PathVariable(value="id") Long id) {
+		if (id>0) {
+			productoDao.delete(id);
+		}
+		return "redirect:/listarProductos";
+	}
 }
