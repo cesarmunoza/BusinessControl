@@ -36,7 +36,7 @@
 			class="text-secondary border border-success border-top-0 border-start-0 border-end-0"
 			th:text="${titulo}"></h1>
 
-		<a th:href="@{/formProducts}" class="btn btn-success">Crear producto</a>
+		<p><a th:href="@{/formProducts}" class="btn btn-success">Crear producto</a></p>
 
 		<table class="table table-striped">
 			<thead>
@@ -48,6 +48,7 @@
 					<th>Valor venta</th>
 					<th>Cantidad</th>
 					<th>Fecha de creación</th>
+					<th>Editar</th>					
 				</tr>
 			</thead>
 			<tbody>
@@ -59,6 +60,7 @@
 					<td th:text="${producto.valorVenta}"></td>
 					<td th:text="${producto.cantidad}"></td>
 					<td th:text="${producto.creadoEn}"></td>
+					<td><a class="btn btn-primary btn-xs" th:href="@{/formProducts/}+${producto.id}" th:text="Editar"></a></td>
 				</tr>
 			</tbody>
 

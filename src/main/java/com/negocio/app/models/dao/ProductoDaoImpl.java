@@ -6,7 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.negocio.app.models.entity.Producto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Repository
 public class ProductoDaoImpl implements IProductoDao{
 	
@@ -23,8 +24,17 @@ public class ProductoDaoImpl implements IProductoDao{
 	@Override
 	@Transactional
 	public void save(Producto producto) {
-		em.persist(producto);
-		
+		log.info("En esta implementación se guarda el producto");
+		if (producto.getId() != null && producto.getId() > 0) {
+			em.merge(producto);
+		}else {
+			em.persist(producto);
+		}				
+	}
+
+	@Override
+	public Producto findOne(Long id) {
+		return em.find(Producto.class, id);
 	}
 
 }
