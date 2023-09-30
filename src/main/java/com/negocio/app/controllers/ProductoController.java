@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.negocio.app.models.dao.IProductoDao;
 import com.negocio.app.models.entity.Producto;
+import com.negocio.app.models.service.IProductoService;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -24,12 +24,12 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductoController {
 	
 	@Autowired
-	private IProductoDao productoDao;
+	private IProductoService productoService;	
 	
 	@GetMapping(value = "listarProductos")
 	public String listar(Model model) {
 		model.addAttribute("titulo", "Listado de productos");
-		model.addAttribute("productos", productoDao.findAll());
+		model.addAttribute("productos", productoService.findAll());
 		return "/listarProductos";
 	}
 	
@@ -48,7 +48,7 @@ public class ProductoController {
 		Producto producto= null;
 		
 		if (id>0) {
-			producto = productoDao.findOne(id);
+			producto = productoService.findOne(id);
 		}else {
 			return "redirect:/listarProductos";
 		}
@@ -64,7 +64,7 @@ public class ProductoController {
 			model.addAttribute("titulo", "Formulario de producto");
 			return "formProducts";
 		}
-		productoDao.save(producto);
+		productoService.save(producto);
 		status.setComplete();
 		log.info("En esta parte se procesan los datos del formulario y se envían en el submit ");
 		return "redirect:listarProductos";		
@@ -73,7 +73,7 @@ public class ProductoController {
 	@RequestMapping(value="/eliminarProducto/{id}")
 	public String eliminarProducto(@PathVariable(value="id") Long id) {
 		if (id>0) {
-			productoDao.delete(id);
+			productoService.delete(id);
 			log.info("Se borró el producto con id: {}", id);
 		}
 		return "redirect:/listarProductos";
