@@ -18,7 +18,7 @@ public class ProductoServiceImpl implements IProductoService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Producto> findAll() {		
-		return productoDao.findAll();
+		return (List<Producto>) productoDao.findAll();
 	}
 
 	@Override
@@ -30,13 +30,13 @@ public class ProductoServiceImpl implements IProductoService {
 	@Override
 	@Transactional(readOnly = true)
 	public Producto findOne(Long id) {		
-		return productoDao.findOne(id);
+		return productoDao.findById(id).orElse(null);
 	}
 
 	@Override
 	@Transactional
 	public void delete(Long id) {
-		productoDao.delete(id);
+		productoDao.deleteById(id);
 
 	}
 
