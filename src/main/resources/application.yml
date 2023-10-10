@@ -1,13 +1,15 @@
+logging:
+  level:
+    org:
+      hibernate:
+        sql: debug
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    password: admin
-    url: jdbc:mysql://localhost/db_springboot
-    username: root  
+    password: ''
+    url: jdbc:mysql://localhost/db_springboot?serverTimezone=America/Bogota&useSSL=false
+    username: root
   jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: create-drop
-logging:
-  level:
-    '[org.hibernate.sql]': debug
