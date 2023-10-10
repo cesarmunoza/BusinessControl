@@ -15,6 +15,16 @@
 		}	    
 	  }
 	</script>
+	<script>
+		function confirmarEliminarProducto() {
+			if (confirm("Seguro que quieres eliminar este producto?")) {
+				return true;
+			} else {
+				event.preventDefault();
+				return false;
+			}
+		}
+	</script>
 
 </head>
 <body>

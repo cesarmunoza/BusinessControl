@@ -40,16 +40,6 @@
 
 		</table>
 	</div>
-	<footer th:replace="layout/layout :: footer"></footer>
-	<script>
-	function confirmarEliminarCliente() {
-		if(confirm('Seguro que quieres eliminar este cliente?')){
-			return true;
-		}else{
-			event.preventDefault();
-			return false;
-		}	    
-	  }
-	</script>
+	<footer th:replace="layout/layout :: footer"></footer>	
 </body>
 </html>
