@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+<meta charset="UTF-8" />
+<title th:text="'Administración de negocio'"></title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"/>
+	<script>
+	function confirmarEliminarCliente() {
+		if(confirm('Seguro que quieres eliminar este cliente?')){
+			return true;
+		}else{
+			event.preventDefault();
+			return false;
+		}	    
+	  }
+	</script>
+
+</head>
+<body>
+<header th:fragment="header">
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/">Control admin</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/">Inicio</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/listarClientes}">Clientes</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/listarProductos}">Productos</a>
+					</li>
+					
+				</ul>
+			</div>
+		</div>
+	</nav>
+	</header>
+	<div class="container"></div>
+	<footer th:fragment="footer" class="container">
+	<hr/>
+	<img th:src="@{/images/logo.png}">
+	<p>Creado por César Muñoz</p>
+	<p>Este proyecto está desarrollado, para la administración básica de los clientes y los productos de un negocio</p>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+	</footer>			
+</body>
+</html>
