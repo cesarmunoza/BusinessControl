@@ -1,11 +1,13 @@
 spring:
   datasource:
-    driverClassName: org.h2.Driver
-    password: password
-    url: jdbc:h2:mem:testdb
-    username: sa
-  h2:
-    console:
-      enabled: true
+    driverClassName: com.mysql.cj.jdbc.Driver
+    password: admin
+    url: jdbc:mysql://localhost/db_springboot
+    username: root  
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: create-drop
+logging:
+  level:
+    '[org.hibernate.sql]': debug
