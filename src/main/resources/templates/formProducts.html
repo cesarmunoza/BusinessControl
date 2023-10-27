@@ -3,9 +3,13 @@
 <head th:replace="layout/layout :: head"></head>
 <body>
 	<header th:replace="layout/layout :: header"></header>
-	<div class="container">
-		<h1 th:text="${titulo}"
-			class="text-secondary border border-success border-top-0 border-start-0 border-end-0"></h1>
+	<div class="container py-4">
+	
+	<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+<!-- 		<h1 th:text="${titulo}" -->
+<!-- 			class="text-secondary border border-success border-top-0 border-start-0 border-end-0"></h1> -->
 
 		<div th:object="${producto}" th:remove="tag">
 			<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
@@ -70,6 +74,8 @@
 				</div>
 			</div>
 		</form>
+		</div>
+		</div>
 	</div>
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>
