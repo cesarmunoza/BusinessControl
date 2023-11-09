@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.negocio.app.models.entity.Cliente;
 import com.negocio.app.models.service.IClienteService;
@@ -43,13 +44,18 @@ public class ClienteController {
 	}
 	
 	@RequestMapping(value="/formClients/{id}")
-	public String editar(@PathVariable(value="id") Long id, Map<String, Object> model) {
+	public String editar(@PathVariable(value="id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 		log.info("Se va a editar el cliente con id: {}", id);
 		Cliente cliente = null;
 		
 		if (id > 0) {
 			cliente = clienteService.findOne(id);
+			if (cliente == null) {
+				flash.addFlashAttribute("error", "El id del cliente no existe en la base de datos!");
+				return "redirect:/listarClientes";
+			}
 		}else {
+			flash.addFlashAttribute("error", "El id del cliente no puede ser cero!");
 			return "redirect:/listarClientes";
 		}
 		model.put("cliente", cliente);		
@@ -58,23 +64,27 @@ public class ClienteController {
 	}
 	
 	@RequestMapping(value="/formClients", method=RequestMethod.POST)	
-	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, SessionStatus status) {
+	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, RedirectAttributes flash , SessionStatus status) {
 		if (result.hasErrors()) {
 			log.info("Existe algún error que impide que se guarde el producto para el cliente: {}", cliente);
 			model.addAttribute("titulo", "Formulario de Cliente");
 			return "formClients";
 		}
+		String mensajeFlash = (cliente.getId() != null)? "Cliente editado con éxito" : "Cliente creado con éxito!";
+		
 		clienteService.save(cliente);
 		status.setComplete();
 		log.info("En esta parte se procesan los datos y se envían en el submit del formulario del cliente: {}", cliente);
+		flash.addFlashAttribute("success", mensajeFlash);
 		return "redirect:listarClientes";
 	}
 	
 	@RequestMapping(value="/eliminarCliente/{id}")
-	public String eliminarCliente(@PathVariable(value="id") Long id) {
+	public String eliminarCliente(@PathVariable(value="id") Long id, RedirectAttributes flash) {
 		if (id > 0) {
 			clienteService.delete(id);
 			log.info("Se borró el cliente con id: {}", id);
+			flash.addFlashAttribute("success", "Cliente eliminado con éxito!");
 		}
 		return "redirect:/listarClientes";
 	}
