@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.negocio.app.controllers.util.paginator.PageRender;
 import com.negocio.app.models.entity.Producto;
 import com.negocio.app.models.service.IProductoService;
 
@@ -34,12 +35,15 @@ public class ProductoController {
 	@GetMapping(value = "listarProductos")
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 		
-		Pageable pageRequest = PageRequest.of(page, 4);
+		Pageable pageRequest = PageRequest.of(page, 5);
 		
 		Page<Producto> productos = productoService.findAll(pageRequest);
 		
+		PageRender<Producto> pageRender = new PageRender<>("/listarProductos", productos);
+		
 		model.addAttribute("titulo", "Listado de productos");
-		model.addAttribute("productos", productoService.findAll());
+		model.addAttribute("productos", productos);
+		model.addAttribute("page", pageRender);
 		return "/listarProductos";
 	}
 	

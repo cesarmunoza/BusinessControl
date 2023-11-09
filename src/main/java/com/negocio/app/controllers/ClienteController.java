@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.negocio.app.controllers.util.paginator.PageRender;
 import com.negocio.app.models.entity.Cliente;
 import com.negocio.app.models.service.IClienteService;
 
@@ -34,12 +35,15 @@ public class ClienteController {
 	@GetMapping(value = "listarClientes")
 	public String listar(@RequestParam(name="page", defaultValue = "0") int page, Model model) {
 		
-		Pageable pageRequest = PageRequest.of(page, 4);
+		Pageable pageRequest = PageRequest.of(page, 5);
 		
 		Page<Cliente> clientes = clienteService.findAll(pageRequest);
 		
+		PageRender<Cliente> pageRender = new PageRender<>("/listarClientes", clientes);
+		
 		model.addAttribute("titulo", "Listado de Clientes");
 		model.addAttribute("clientes", clientes);
+		model.addAttribute("page", pageRender);
 		return "/listarClientes";
 	}
 	
