@@ -21,8 +21,8 @@
   <a class="page-link" th:if="${page.hasNext}" th:href="@{${page.url}(page=${page.paginaActual})}">&raquo;</a>
   </li>
   <li class="page-item" th:class="${page.last? 'page-item disabled' : 'page-item'}">
-  <span class="page-link" th:if="${page.last}">Última</span>
-  <a class="page-link" th:if="${not page.last}" th:href="@{${page.url}(page=${page.totalPaginas-1})}">Última</a>
+  <span class="page-link" th:if="${page.last}">última</span>
+  <a class="page-link" th:if="${not page.last}" th:href="@{${page.url}(page=${page.totalPaginas-1})}">última</a>
   </li>
 </ul>
 

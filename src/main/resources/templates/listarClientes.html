@@ -3,17 +3,14 @@
 <head th:replace="layout/layout :: head"></head>
 <body>
 	<header th:replace="layout/layout :: header"></header>
-	<div class="container py-4">
-	
+	<div class="container py-4">	
 		<div class="card bg-light">
 			<div class="card-header" th:text="${titulo}"></div>
-			<div class="card-body">
-				
+			<div class="card-body">				
 				<h4 class="card-title">
 					<a th:href="@{/formClients}" class="btn btn-primary btn-xs">Crear
 						cliente</a>
 				</h4>
-
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -30,7 +27,9 @@
 					</thead>
 					<tbody>
 						<tr th:each="cliente: ${clientes}">
-							<td th:text="${cliente.idCliente}"></td>
+							<td>
+								<a class="btn btn-primary btn-xs" th:href="@{/verCliente/}+${cliente.idCliente}" th:text="${cliente.idCliente}"></a>
+							</td>					
 							<td th:text="${cliente.nombre}"></td>
 							<td th:text="${cliente.apellido}"></td>
 							<td th:text="${cliente.mail}"></td>
