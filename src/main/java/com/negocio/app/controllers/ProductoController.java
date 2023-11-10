@@ -37,8 +37,8 @@ public class ProductoController {
 	@Autowired
 	private IProductoService productoService;
 	
-	@GetMapping(value="/ver/{idProducto}")
-	public String ver(@PathVariable(value="id") Long idProducto, Map<String, Object> model, RedirectAttributes flash) {
+	@GetMapping(value="/verProducto/{idProducto}")
+	public String verProducto(@PathVariable(value="idProducto") Long idProducto, Map<String, Object> model, RedirectAttributes flash) {
 		
 		Producto producto = productoService.findOne(idProducto);
 		if (producto ==null) {
@@ -49,7 +49,7 @@ public class ProductoController {
 		model.put("producto", producto);
 		model.put("titulo", "Detalle producto: "+producto.getNombre());
 		
-		return "ver";
+		return "verProducto";
 	}
 	
 	@GetMapping(value = "listarProductos")

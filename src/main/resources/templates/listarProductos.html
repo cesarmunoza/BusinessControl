@@ -31,7 +31,9 @@
 			</thead>
 			<tbody>
 				<tr th:each="producto: ${productos}">
-					<td th:text="${producto.idProducto}"></td>
+					<td>
+						<a class="btn btn-primary btn-xs" th:href="@{/verProducto/}+${producto.idProducto}" th:text="${producto.idProducto}"></a>
+					</td>	
 					<td th:text="${producto.nombre}"></td>
 					<td th:text="${producto.descripcion}"></td>
 					<td th:text="${producto.valorCompra}"></td>

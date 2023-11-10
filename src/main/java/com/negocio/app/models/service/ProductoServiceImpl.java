@@ -43,6 +43,7 @@ public class ProductoServiceImpl implements IProductoService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Page<Producto> findAll(Pageable pageable) {		
 		return productoDao.findAll(pageable);
 	}
