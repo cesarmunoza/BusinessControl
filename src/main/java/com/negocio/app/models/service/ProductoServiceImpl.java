@@ -31,14 +31,14 @@ public class ProductoServiceImpl implements IProductoService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Producto findOne(Long id) {		
-		return productoDao.findById(id).orElse(null);
+	public Producto findOne(Long idProducto) {		
+		return productoDao.findById(idProducto).orElse(null);
 	}
 
 	@Override
 	@Transactional
-	public void delete(Long id) {
-		productoDao.deleteById(id);
+	public void delete(Long idProducto) {
+		productoDao.deleteById(idProducto);
 
 	}
 

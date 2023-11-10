@@ -15,8 +15,8 @@ public interface IProductoService {
 	
 	public void save(Producto producto);
 	
-	public Producto findOne(Long id);
+	public Producto findOne(Long idProducto);
 	
-	public void delete(Long id);
+	public void delete(Long idProducto);
 
 }

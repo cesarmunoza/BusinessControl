@@ -15,9 +15,9 @@ public interface IClienteService {
 	
 	public void save(Cliente cliente);
 	
-	public Cliente findOne(Long id);
+	public Cliente findOne(Long idCliente);
 	
-	public void delete(Long id);
+	public void delete(Long idCliente);
 
 
 }

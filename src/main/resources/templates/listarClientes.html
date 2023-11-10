@@ -30,7 +30,7 @@
 					</thead>
 					<tbody>
 						<tr th:each="cliente: ${clientes}">
-							<td th:text="${cliente.id}"></td>
+							<td th:text="${cliente.idCliente}"></td>
 							<td th:text="${cliente.nombre}"></td>
 							<td th:text="${cliente.apellido}"></td>
 							<td th:text="${cliente.mail}"></td>
@@ -38,9 +38,9 @@
 							<td th:text="${cliente.direccion}"></td>
 							<td th:text="${cliente.creadoEn}"></td>
 							<td><a class="btn btn-primary btn-xs"
-								th:href="@{/formClients/}+${cliente.id}" th:text="Editar"></a></td>
+								th:href="@{/formClients/}+${cliente.idCliente}" th:text="Editar"></a></td>
 							<td><a class="btn btn-danger btn-xs"
-								th:href="@{/eliminarCliente/}+${cliente.id}" th:text="Eliminar"
+								th:href="@{/eliminarCliente/}+${cliente.idCliente}" th:text="Eliminar"
 								onclick="confirmarEliminarCliente();"></a></td>
 						</tr>
 					</tbody>

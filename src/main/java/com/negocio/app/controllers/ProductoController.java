@@ -35,7 +35,22 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductoController {
 	
 	@Autowired
-	private IProductoService productoService;	
+	private IProductoService productoService;
+	
+	@GetMapping(value="/ver/{idProducto}")
+	public String ver(@PathVariable(value="id") Long idProducto, Map<String, Object> model, RedirectAttributes flash) {
+		
+		Producto producto = productoService.findOne(idProducto);
+		if (producto ==null) {
+			flash.addFlashAttribute("error", "El producto no existe en la base de datos");
+			return "redirect:/listar";
+		}
+		
+		model.put("producto", producto);
+		model.put("titulo", "Detalle producto: "+producto.getNombre());
+		
+		return "ver";
+	}
 	
 	@GetMapping(value = "listarProductos")
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
@@ -61,13 +76,13 @@ public class ProductoController {
 		return "formProducts";		
 	}
 	
-	@RequestMapping(value="/formProducts/{id}")
-	public String editar(@PathVariable(value="id") Long id, Map<String, Object> model, RedirectAttributes flash) {
-		log.info("Se va a editar el producto con id: {}", id);
+	@RequestMapping(value="/formProducts/{idProducto}")
+	public String editar(@PathVariable(value="idProducto") Long idProducto, Map<String, Object> model, RedirectAttributes flash) {
+		log.info("Se va a editar el producto con id: {}", idProducto);
 		Producto producto= null;
 		
-		if (id>0) {
-			producto = productoService.findOne(id);
+		if (idProducto>0) {
+			producto = productoService.findOne(idProducto);
 			if (producto == null) {
 				flash.addFlashAttribute("error", "El id del producto no existe en la base de datos!");
 				return "redirect:/listarProductos";
@@ -104,7 +119,7 @@ public class ProductoController {
 			}
 		}
 		
-		String mensajeFlash = (producto.getId() != null)? "Producto editado con éxito!" : "Producto creado con éxito!";
+		String mensajeFlash = (producto.getIdProducto() != null)? "Producto editado con éxito!" : "Producto creado con éxito!";
 		
 		productoService.save(producto);
 		status.setComplete();
@@ -113,11 +128,11 @@ public class ProductoController {
 		return "redirect:listarProductos";		
 	}
 	
-	@RequestMapping(value="/eliminarProducto/{id}")
-	public String eliminarProducto(@PathVariable(value="id") Long id, RedirectAttributes flash) {
-		if (id>0) {
-			productoService.delete(id);
-			log.info("Se borró el producto con id: {}", id);
+	@RequestMapping(value="/eliminarProducto/{idProducto}")
+	public String eliminarProducto(@PathVariable(value="idProducto") Long idProducto, RedirectAttributes flash) {
+		if (idProducto>0) {
+			productoService.delete(idProducto);
+			log.info("Se borró el producto con id: {}", idProducto);
 			flash.addFlashAttribute("success", "Producto eliminado con Éxito!");
 		}
 		return "redirect:/listarProductos";

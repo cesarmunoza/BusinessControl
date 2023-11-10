@@ -37,7 +37,22 @@ public class ClienteController {
 	@Autowired
 	private IClienteService clienteService;
 	
-	@GetMapping(value = "listarClientes")
+	@GetMapping(value="/ver/{idCliente}")
+	public String ver(@PathVariable(value="idCliente") Long idCliente, Map<String, Object> model, RedirectAttributes flash) {
+		
+		Cliente cliente = clienteService.findOne(idCliente);
+		if (cliente ==null) {
+			flash.addFlashAttribute("error", "El cliente no existe en la base de datos");
+			return "redirect:/listar";
+		}
+		
+		model.put("cliente", cliente);
+		model.put("titulo", "Detalle cliente: "+cliente.getNombre());
+		
+		return "ver";
+	}
+	
+	@RequestMapping(value = "listarClientes")
 	public String listar(@RequestParam(name="page", defaultValue = "0") int page, Model model) {
 		
 		Pageable pageRequest = PageRequest.of(page, 5);
@@ -61,13 +76,13 @@ public class ClienteController {
 		return "formClients";
 	}
 	
-	@RequestMapping(value="/formClients/{id}")
-	public String editar(@PathVariable(value="id") Long id, Map<String, Object> model, RedirectAttributes flash) {
-		log.info("Se va a editar el cliente con id: {}", id);
+	@RequestMapping(value="/formClients/{idCliente}")
+	public String editar(@PathVariable(value="idCliente") Long idCliente, Map<String, Object> model, RedirectAttributes flash) {
+		log.info("Se va a editar el cliente con id: {}", idCliente);
 		Cliente cliente = null;
 		
-		if (id > 0) {
-			cliente = clienteService.findOne(id);
+		if (idCliente > 0) {
+			cliente = clienteService.findOne(idCliente);
 			if (cliente == null) {
 				flash.addFlashAttribute("error", "El id del cliente no existe en la base de datos!");
 				return "redirect:/listarClientes";
@@ -104,7 +119,7 @@ public class ClienteController {
 			}
 		}
 		
-		String mensajeFlash = (cliente.getId() != null)? "Cliente editado con éxito" : "Cliente creado con éxito!";
+		String mensajeFlash = (cliente.getIdCliente() != null)? "Cliente editado con éxito" : "Cliente creado con éxito!";
 		
 		clienteService.save(cliente);
 		status.setComplete();
@@ -113,11 +128,11 @@ public class ClienteController {
 		return "redirect:listarClientes";
 	}
 	
-	@RequestMapping(value="/eliminarCliente/{id}")
-	public String eliminarCliente(@PathVariable(value="id") Long id, RedirectAttributes flash) {
-		if (id > 0) {
-			clienteService.delete(id);
-			log.info("Se borró el cliente con id: {}", id);
+	@RequestMapping(value="/eliminarCliente/{idCliente}")
+	public String eliminarCliente(@PathVariable(value="idCliente") Long idCliente, RedirectAttributes flash) {
+		if (idCliente > 0) {
+			clienteService.delete(idCliente);
+			log.info("Se borró el cliente con id: {}", idCliente);
 			flash.addFlashAttribute("success", "Cliente eliminado con éxito!");
 		}
 		return "redirect:/listarClientes";
