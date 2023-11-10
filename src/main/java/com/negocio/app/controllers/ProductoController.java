@@ -1,5 +1,9 @@
 package com.negocio.app.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.negocio.app.controllers.util.paginator.PageRender;
@@ -77,12 +82,28 @@ public class ProductoController {
 	}
 	
 	@RequestMapping(value="/formProducts", method=RequestMethod.POST)
-	public String guardar(@Valid Producto producto, BindingResult result, Model model, RedirectAttributes flash, SessionStatus status) {
+	public String guardar(@Valid Producto producto, BindingResult result, Model model, @RequestParam("file") MultipartFile fotoProductos, RedirectAttributes flash, SessionStatus status) {
 		if (result.hasErrors()) {
 			log.info("Existe algún error que impide que se guarde el producto para el producto: {}", producto);
 			model.addAttribute("titulo", "Formulario de producto");
 			return "formProducts";
 		}
+		
+		if (!fotoProductos.isEmpty()) {
+			Path directorioRecursos = Paths.get("src//main//resources//static/uploads");
+			String rootPath = directorioRecursos.toFile().getAbsolutePath();
+			try {
+				byte[] bytes = fotoProductos.getBytes();
+				Path rutaCompleta = Paths.get(rootPath + "//" + fotoProductos.getOriginalFilename());
+				Files.write(rutaCompleta, bytes);
+				flash.addFlashAttribute("info", "Has subido la foto correctamente '" + fotoProductos.getOriginalFilename() + "'");
+				
+				producto.setFotoProductos(fotoProductos.getOriginalFilename());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		String mensajeFlash = (producto.getId() != null)? "Producto editado con éxito!" : "Producto creado con éxito!";
 		
 		productoService.save(producto);

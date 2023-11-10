@@ -1,7 +1,6 @@
 package com.negocio.app.controllers.util.paginator;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
