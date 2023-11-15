@@ -7,7 +7,7 @@
 		<div class="card bg-light">
 			<div class="card-header" th:text="${titulo}"></div>
 			<div class="card-body">	
-				<img th:if="${#strings.length(cliente.fotoClientes) >0}" class="img-thumbnail rounded float-left"
+				<img th:if="${cliente.fotoClientes != null and #strings.length(cliente.fotoClientes) >0}" class="img-thumbnail rounded float-left"
 					style="max-width: 25%;" th:src="@{'/uploads/' + ${cliente.fotoClientes}}"
 					th:alt="${cliente.fotoClientes}">
 

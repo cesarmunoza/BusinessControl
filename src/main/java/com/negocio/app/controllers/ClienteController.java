@@ -104,9 +104,8 @@ public class ClienteController {
 			return "formClients";
 		}
 		
-		if (!fotoClientes.isEmpty()) {
-			Path directorioRecursos = Paths.get("src//main//resources//static/uploads");
-			String rootPath = directorioRecursos.toFile().getAbsolutePath();
+		if (!fotoClientes.isEmpty()) {			
+			String rootPath = "D:\\Estudio\\Java\\Spring\\WorkspaceChileno\\uploads";
 			try {
 				byte[] bytes = fotoClientes.getBytes();
 				Path rutaCompleta = Paths.get(rootPath + "//" + fotoClientes.getOriginalFilename());

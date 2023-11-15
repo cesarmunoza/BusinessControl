@@ -105,8 +105,7 @@ public class ProductoController {
 		}
 		
 		if (!fotoProductos.isEmpty()) {
-			Path directorioRecursos = Paths.get("src//main//resources//static/uploads");
-			String rootPath = directorioRecursos.toFile().getAbsolutePath();
+			String rootPath = "D:\\Estudio\\Java\\Spring\\WorkspaceChileno\\uploads";
 			try {
 				byte[] bytes = fotoProductos.getBytes();
 				Path rutaCompleta = Paths.get(rootPath + "//" + fotoProductos.getOriginalFilename());
