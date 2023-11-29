@@ -12,14 +12,14 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer{
 	
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		WebMvcConfigurer.super.addResourceHandlers(registry);
-		
-		String resourcePath = Paths.get("uploads").toAbsolutePath().toUri().toString();
-		log.info(resourcePath);
-		registry.addResourceHandler("/uploads/**")
-		.addResourceLocations(resourcePath);
-	}
+//	@Override
+//	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//		WebMvcConfigurer.super.addResourceHandlers(registry);
+//		
+//		String resourcePath = Paths.get("uploads").toAbsolutePath().toUri().toString();
+//		log.info(resourcePath);
+//		registry.addResourceHandler("/uploads/**")
+//		.addResourceLocations(resourcePath);
+//	}
 
 }

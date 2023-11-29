@@ -1,15 +1,21 @@
 package com.negocio.app.controllers;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +42,27 @@ public class ProductoController {
 	
 	@Autowired
 	private IProductoService productoService;
+	
+	@GetMapping(value="/uploads/productos/{filename:.+}")
+	public ResponseEntity<Resource> verFotoProducto(@PathVariable String filename){
+		Path pathFotoProducto = Paths.get("uploads/productos").resolve(filename).toAbsolutePath();
+		log.info("pathFotoProducto: " + pathFotoProducto);
+		
+		Resource recurso = null;
+		try {
+			recurso = new UrlResource(pathFotoProducto.toUri());
+			if (!recurso.exists() || !recurso.isReadable()) {
+				throw new RuntimeException("Error: no se puede cargar la imagen: " + pathFotoProducto.toString());
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+recurso.getFilename()+"\"")
+				.body(recurso);
+		
+	}
 	
 	@GetMapping(value="/verProducto/{idProducto}")
 	public String verProducto(@PathVariable(value="idProducto") Long idProducto, Map<String, Object> model, RedirectAttributes flash) {
@@ -105,14 +132,19 @@ public class ProductoController {
 		}
 		
 		if (!fotoProductos.isEmpty()) {
-			String rootPath = "D:\\Estudio\\Java\\Spring\\WorkspaceChileno\\uploads";
+			//String rootPath = "D:\\Estudio\\Java\\Spring\\WorkspaceChileno\\uploads";
+			String uniqueProductFilename = UUID.randomUUID().toString() + "_" + fotoProductos.getOriginalFilename();
+			Path rootPath = Paths.get("uploads/productos").resolve(uniqueProductFilename);
+			Path rootAbsolutPath = rootPath.toAbsolutePath();
+			log.info("rootPath: "+rootPath);
+			log.info("rootAbsolutePath: "+ rootAbsolutPath);
+			
+			
 			try {
-				byte[] bytes = fotoProductos.getBytes();
-				Path rutaCompleta = Paths.get(rootPath + "//" + fotoProductos.getOriginalFilename());
-				Files.write(rutaCompleta, bytes);
-				flash.addFlashAttribute("info", "Has subido la foto correctamente '" + fotoProductos.getOriginalFilename() + "'");
+				Files.copy(fotoProductos.getInputStream(), rootAbsolutPath);
+				flash.addFlashAttribute("info", "Has subido la foto correctamente '" + uniqueProductFilename + "'");
 				
-				producto.setFotoProductos(fotoProductos.getOriginalFilename());
+				producto.setFotoProductos(uniqueProductFilename);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

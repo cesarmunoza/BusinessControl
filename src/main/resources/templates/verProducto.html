@@ -8,7 +8,7 @@
 			<div class="card-header" th:text="${titulo}"></div>
 			<div class="card-body">	
 				<img th:if="${producto.fotoProductos != null and #strings.length(producto.fotoProductos) >0}" class="img-thumbnail rounded float-left"
-					style="max-width: 25%;" th:src="@{'/uploads/' + ${producto.fotoProductos}}"
+					style="max-width: 25%;" th:src="@{'/uploads/productos/' + ${producto.fotoProductos}}"
 					th:alt="${producto.fotoProductos}">
 
 				<ul class="list-group">
