@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -105,14 +106,20 @@ public class ClienteController {
 		}
 		
 		if (!fotoClientes.isEmpty()) {			
-			String rootPath = "D:\\Estudio\\Java\\Spring\\WorkspaceChileno\\uploads";
+			//String rootPath = "D:\\Estudio\\Java\\Spring\\WorkspaceChileno\\uploads";
+			String uniqueFilename = UUID.randomUUID().randomUUID().toString() +fotoClientes.getOriginalFilename();
+			Path rootPath = Paths.get("uploads").resolve(uniqueFilename);
+			Path rootAbsolutePath = rootPath.toAbsolutePath();
+			log.info("rootPath: " +rootPath);
+			log.info("rootAbsolutePath: "+ rootAbsolutePath);
 			try {
-				byte[] bytes = fotoClientes.getBytes();
-				Path rutaCompleta = Paths.get(rootPath + "//" + fotoClientes.getOriginalFilename());
-				Files.write(rutaCompleta, bytes);
-				flash.addFlashAttribute("info", "Has subido la foto correctamente '" + fotoClientes.getOriginalFilename() + "'");
+//				byte[] bytes = fotoClientes.getBytes();
+//				Path rutaCompleta = Paths.get(rootPath + "//" + fotoClientes.getOriginalFilename());
+//				Files.write(rutaCompleta, bytes);
+				Files.copy(fotoClientes.getInputStream(), rootAbsolutePath);
+				flash.addFlashAttribute("info", "Has subido la foto correctamente '" + uniqueFilename + "'");
 				
-				cliente.setFotoClientes(fotoClientes.getOriginalFilename());
+				cliente.setFotoClientes(uniqueFilename);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
