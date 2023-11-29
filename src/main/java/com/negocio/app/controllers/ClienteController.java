@@ -1,5 +1,6 @@
 package com.negocio.app.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -40,12 +41,13 @@ import lombok.extern.slf4j.Slf4j;
 @SessionAttributes("cliente")
 public class ClienteController {
 	
+	private static final String UPLOADS_CLIENTES = "uploads/clientes";
 	@Autowired
 	private IClienteService clienteService;
 	
 	@GetMapping(value="/uploads/clientes/{filename:.+}")
 	public ResponseEntity<Resource> verFotoCliente(@PathVariable String filename){
-		Path pathFotoCliente = Paths.get("uploads/clientes").resolve(filename).toAbsolutePath();
+		Path pathFotoCliente = Paths.get(UPLOADS_CLIENTES).resolve(filename).toAbsolutePath();
 		log.info("pathFotoCliente: " + pathFotoCliente);
 		
 		Resource recurso = null;
@@ -131,10 +133,25 @@ public class ClienteController {
 			return "formClients";
 		}
 		
-		if (!fotoClientes.isEmpty()) {			
+		if (!fotoClientes.isEmpty()) {
+			
+			if (cliente.getIdCliente() != null
+					&& cliente.getIdCliente() > 0
+					&& cliente.getFotoClientes() != null
+					&& cliente.getFotoClientes().length() > 0) {
+				
+				Path rootPath = Paths.get(UPLOADS_CLIENTES).resolve(cliente.getFotoClientes()).toAbsolutePath();
+				File archivo = rootPath.toFile();
+				
+				if (archivo.exists() && archivo.canRead()) {
+					archivo.delete();
+				}
+				
+			}
+			
 			//String rootPath = "D:\\Estudio\\Java\\Spring\\WorkspaceChileno\\uploads";
 			String uniqueClientFilename = UUID.randomUUID().toString() + "_" + fotoClientes.getOriginalFilename();
-			Path rootPath = Paths.get("uploads/clientes").resolve(uniqueClientFilename);
+			Path rootPath = Paths.get(UPLOADS_CLIENTES).resolve(uniqueClientFilename);
 			Path rootAbsolutePath = rootPath.toAbsolutePath();
 			log.info("rootPath: " +rootPath);
 			log.info("rootAbsolutePath: "+ rootAbsolutePath);
@@ -163,9 +180,24 @@ public class ClienteController {
 	@RequestMapping(value="/eliminarCliente/{idCliente}")
 	public String eliminarCliente(@PathVariable(value="idCliente") Long idCliente, RedirectAttributes flash) {
 		if (idCliente > 0) {
+			Cliente cliente = clienteService.findOne(idCliente);
 			clienteService.delete(idCliente);
 			log.info("Se borró el cliente con id: {}", idCliente);
 			flash.addFlashAttribute("success", "Cliente eliminado con éxito!");
+			
+			Path rootPath = Paths.get(UPLOADS_CLIENTES).resolve(cliente.getFotoClientes()).toAbsolutePath();
+			File archivo = rootPath.toFile();
+			
+			if (archivo.exists() && archivo.isFile() && archivo.canRead()) {
+				if (archivo.delete()) {
+					flash.addFlashAttribute("info", "foto " + cliente.getFotoClientes() + " eliminada con éxito!");
+				}
+				else {
+					flash.addFlashAttribute("error", "No se pudo eliminar la foto " + cliente.getFotoClientes());
+				}
+			}else {
+				flash.addFlashAttribute("error", "La foto " + cliente.getFotoClientes() + " no existe o no se puede leer");
+			}
 		}
 		return "redirect:/listarClientes";
 	}

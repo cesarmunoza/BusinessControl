@@ -1,5 +1,6 @@
 package com.negocio.app.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -40,12 +41,13 @@ import lombok.extern.slf4j.Slf4j;
 @SessionAttributes("producto")
 public class ProductoController {
 	
+	private static final String UPLOADS_PRODUCTOS = "uploads/productos";
 	@Autowired
 	private IProductoService productoService;
 	
 	@GetMapping(value="/uploads/productos/{filename:.+}")
 	public ResponseEntity<Resource> verFotoProducto(@PathVariable String filename){
-		Path pathFotoProducto = Paths.get("uploads/productos").resolve(filename).toAbsolutePath();
+		Path pathFotoProducto = Paths.get(UPLOADS_PRODUCTOS).resolve(filename).toAbsolutePath();
 		log.info("pathFotoProducto: " + pathFotoProducto);
 		
 		Resource recurso = null;
@@ -132,9 +134,23 @@ public class ProductoController {
 		}
 		
 		if (!fotoProductos.isEmpty()) {
+			
+			if (producto.getIdProducto() != null
+					&& producto.getIdProducto() > 0
+					&& producto.getFotoProductos() != null
+					&& producto.getFotoProductos().length() > 0) {
+				
+				Path rootPath = Paths.get(UPLOADS_PRODUCTOS).resolve(producto.getFotoProductos()).toAbsolutePath();
+				File archivo = rootPath.toFile();
+				
+				if (archivo.exists() && archivo.canRead()) {
+					archivo.delete();
+				}
+			}
+			
 			//String rootPath = "D:\\Estudio\\Java\\Spring\\WorkspaceChileno\\uploads";
 			String uniqueProductFilename = UUID.randomUUID().toString() + "_" + fotoProductos.getOriginalFilename();
-			Path rootPath = Paths.get("uploads/productos").resolve(uniqueProductFilename);
+			Path rootPath = Paths.get(UPLOADS_PRODUCTOS).resolve(uniqueProductFilename);
 			Path rootAbsolutPath = rootPath.toAbsolutePath();
 			log.info("rootPath: "+rootPath);
 			log.info("rootAbsolutePath: "+ rootAbsolutPath);
@@ -162,9 +178,23 @@ public class ProductoController {
 	@RequestMapping(value="/eliminarProducto/{idProducto}")
 	public String eliminarProducto(@PathVariable(value="idProducto") Long idProducto, RedirectAttributes flash) {
 		if (idProducto>0) {
+			Producto producto = productoService.findOne(idProducto);			
 			productoService.delete(idProducto);
 			log.info("Se borró el producto con id: {}", idProducto);
 			flash.addFlashAttribute("success", "Producto eliminado con Éxito!");
+			
+			Path rootPath = Paths.get(UPLOADS_PRODUCTOS).resolve(producto.getFotoProductos()).toAbsolutePath();
+			File archivo = rootPath.toFile();
+			
+			if (archivo.exists() && archivo.isFile() && archivo.canRead()) {
+				if (archivo.delete()) {
+					flash.addFlashAttribute("info", "foto " + producto.getFotoProductos() + " eliminada con éxito!");
+				}else {
+					flash.addFlashAttribute("error", "No se pudo eliminar la foto " + producto.getFotoProductos() );
+				}				
+			}else {
+				flash.addFlashAttribute("error", "La foto " + producto.getFotoProductos() + " no existe o no se puede leer");
+			}
 		}
 		return "redirect:/listarProductos";
 	}
