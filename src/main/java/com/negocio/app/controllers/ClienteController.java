@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,6 +42,7 @@ public class ClienteController {
 	private IClienteService clienteService;
 	
 	@Autowired
+	@Qualifier("uploadClientFileServiceImpl")
 	private IUploadFileService uploadFileService;
 
 	@GetMapping(value = "/uploads/clientes/{filename:.+}")
@@ -171,7 +173,9 @@ public class ClienteController {
 
 			if (uploadFileService.delete(cliente.getFotoClientes())) {
 				flash.addFlashAttribute("info", "La foto " + cliente.getFotoClientes() + " se eliminó!");
-			}
+			}else {
+				flash.addFlashAttribute("error", "No se pudo eliminar la foto " + cliente.getFotoClientes());
+			}	
 		}
 		return "redirect:/listarClientes";
 	}
