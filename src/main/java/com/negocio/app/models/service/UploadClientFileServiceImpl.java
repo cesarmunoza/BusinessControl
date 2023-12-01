@@ -11,8 +11,10 @@ import java.util.UUID;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -70,5 +72,45 @@ public class UploadClientFileServiceImpl implements IUploadFileService {
 	public Path getPath(String filename) {
 		return Paths.get(UPLOADS_CLIENTES).resolve(filename).toAbsolutePath();
 	}
+
+	@Override
+	public void init() throws IOException {
+		try {
+			Path uploadsPath = Paths.get(UPLOADS_CLIENTES).getParent();
+			
+			//Se crea la carpeta raíz: uploads, solo aquí porque es la raíz entonces no se crea en la implementación de Producto
+			if(!Files.exists(uploadsPath)) {
+				Files.createDirectories(uploadsPath);
+				log.info("Se creó la carpeta uploads para subir las fotos de los clientes: {}", uploadsPath);
+			}else {
+				log.info("La carpeta uploads ya existe: {}", uploadsPath);
+			}
+			
+			//Se crea la carpeta de clientes
+			Path clientesPath = Paths.get(UPLOADS_CLIENTES);
+			
+				Files.createDirectories(clientesPath);
+				log.info("Se creó la carpeta de clientes: {}", clientesPath);
+			
+		} catch (Exception e) {
+			log.error("Error durante la inicialización", e);
+		}		
+		
+	}
+	
+	@Override
+	public void deleteAll() {
+		FileSystemUtils.deleteRecursively(Paths.get(UPLOADS_CLIENTES).getParent().toFile());		
+	}
+
+	@Override
+	@PreDestroy
+	public void cleanUp() {
+		//Lógica para limpiar al detener la aplicación
+		System.out.println("Limpiando las fotos de clientes...");
+		deleteAll();
+	}
+	
+	
 
 }
