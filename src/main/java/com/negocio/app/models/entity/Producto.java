@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -37,11 +38,11 @@ public class Producto implements Serializable{
 	
 	@NotEmpty
 	@Column(name="valor_compra")
-	private String valorCompra;
+	private Double valorCompra;
 	
 	@NotEmpty
 	@Column(name="valor_venta")
-	private String valorVenta;
+	private Double valorVenta;
 	
 	@NotNull
 	private Integer cantidad;
@@ -51,6 +52,11 @@ public class Producto implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date creadoEn;
+	
+	@PrePersist
+	public void prePersist() {
+		creadoEn = new Date();
+	}
 	
 	@Column(name="foto_productos")
 	private String fotoProductos;
