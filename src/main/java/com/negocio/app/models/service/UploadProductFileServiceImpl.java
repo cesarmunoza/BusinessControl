@@ -72,41 +72,43 @@ public class UploadProductFileServiceImpl implements IUploadFileService {
 		return Paths.get(UPLOADS_PRODUCTOS).resolve(filename).toAbsolutePath();
 	}
 	
-	@Override
-	public void init() throws IOException {
-		try {
-			Path uploadsPath = Paths.get(UPLOADS_PRODUCTOS).getParent();
-			
-//			if(!Files.exists(uploadsPath)) {
-//				Files.createDirectories(uploadsPath);
-//				log.info("Se creó la carpeta uploads para subir las fotos de los productos: {}", uploadsPath);
-//			}else {
-//				log.info("La carpeta uploads ya existe: {}", uploadsPath);
-//			}
-					
-			//Se crea la carpeta de productos
-			Path productosPath = Paths.get(UPLOADS_PRODUCTOS);
-			
-				Files.createDirectories(productosPath);
-				log.info("Se creó la carpeta de productos: {}", productosPath);
-			
-		} catch (Exception e) {
-			log.error("Error durante la inicialización", e);
-		}
-	}
-	
-	@Override
-	public void deleteAll() {
-		FileSystemUtils.deleteRecursively(Paths.get(UPLOADS_PRODUCTOS).toFile());
-		
-	}
-	
-	@Override
-	@PreDestroy
-	public void cleanUp() {
-		//Lógica para limpiar al detener la aplicación
-				System.out.println("Limpiando las fotos de productos...");
-				deleteAll();		
-	}
+//	@Override
+//	public void init() throws IOException {
+//		try {
+//			Path uploadsPath = Paths.get(UPLOADS_PRODUCTOS).getParent();
+//			log.info("Se creó la carpeta uploads para subir las fotos de los productos: {}", uploadsPath);
+//			
+//			//Esto solo se hace en la parte de cliente porque solo se debe crear la carpeta una vez
+////			if(!Files.exists(uploadsPath)) {
+////				Files.createDirectories(uploadsPath);
+////				log.info("Se creó la carpeta uploads para subir las fotos de los productos: {}", uploadsPath);
+////			}else {
+////				log.info("La carpeta uploads ya existe: {}", uploadsPath);
+////			}
+//					
+//			//Se crea la carpeta de productos
+//			Path productosPath = Paths.get(UPLOADS_PRODUCTOS);
+//			
+//				Files.createDirectories(productosPath);
+//				log.info("Se creó la carpeta de productos: {}", productosPath);
+//			
+//		} catch (Exception e) {
+//			log.error("Error durante la inicialización", e);
+//		}
+//	}
+//	
+//	@Override
+//	public void deleteAll() {
+//		FileSystemUtils.deleteRecursively(Paths.get(UPLOADS_PRODUCTOS).toFile());
+//		
+//	}
+//	
+//	@Override
+//	@PreDestroy
+//	public void cleanUp() {
+//		//Lógica para limpiar al detener la aplicación
+//				System.out.println("Limpiando las fotos de productos...");
+//				deleteAll();		
+//	}
 
 }

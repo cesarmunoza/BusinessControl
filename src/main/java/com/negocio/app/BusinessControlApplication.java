@@ -11,29 +11,29 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.negocio.app.models.service.IUploadFileService;
 
 @SpringBootApplication
-public class BusinessControlApplication implements CommandLineRunner{
+public class BusinessControlApplication{
 	
-	@Autowired
-	private List<IUploadFileService> uploadFileService;
+//	@Autowired
+//	private List<IUploadFileService> uploadFileService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BusinessControlApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		
-		//Inicialización del directorio al inicio de la aplicación		
-		uploadFileService.forEach(t -> {
-			try {
-				t.init();
-			} catch (IOException e) {				
-				e.printStackTrace();
-			}
-		});
-		
-		//uploadFileService.deleteAll(); el de borrar lo haré en las implementaciones
-		
-	}
+//	@Override
+//	public void run(String... args) throws Exception {
+//		
+//		//Inicialización del directorio al inicio de la aplicación		
+//		uploadFileService.forEach(t -> {
+//			try {
+//				t.init();
+//			} catch (IOException e) {				
+//				e.printStackTrace();
+//			}
+//		});
+//		
+//		//uploadFileService.deleteAll(); el de borrar lo haré en las implementaciones
+//		
+//	}
 
 }
