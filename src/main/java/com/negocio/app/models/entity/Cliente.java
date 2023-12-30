@@ -58,16 +58,16 @@ public class Cliente implements Serializable{
 	private Date creadoEn;
 	
 	@OneToMany(mappedBy = "cliente", fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval = true)
-	private List<Factura55> facturas;
+	private List<Factura> facturas;
 	
 	public Cliente() {		
-		facturas = new ArrayList<Factura55>();
+		facturas = new ArrayList<Factura>();
 	}
 	
 	@Column(name="foto_clientes")
 	private String fotoClientes;
 	
-	public void addFactura(Factura55 factura) {
+	public void addFactura(Factura factura) {
 		facturas.add(factura);
 	}
 

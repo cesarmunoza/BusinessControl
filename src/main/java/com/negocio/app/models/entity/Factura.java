@@ -24,7 +24,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="facturas22")
-public class Factura55 implements Serializable{
+public class Factura implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +43,7 @@ public class Factura55 implements Serializable{
 	@JoinColumn(name="factura_id")
 	private List<ItemFactura> items;
 	
-	public Factura55() {
+	public Factura() {
 		this.items = new ArrayList<ItemFactura>();
 	}
 	

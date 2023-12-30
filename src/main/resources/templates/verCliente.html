@@ -3,12 +3,14 @@
 <head th:replace="~{layout/layout :: head}"></head>
 <body>
 	<header th:replace="~{layout/layout :: header}"></header>
-	<div class="container py-4">	
+	<div class="container py-4">
 		<div class="card bg-light">
 			<div class="card-header" th:text="${titulo}"></div>
-			<div class="card-body">	
-				<img th:if="${cliente.fotoClientes != null and #strings.length(cliente.fotoClientes) >0}" class="img-thumbnail rounded float-left"
-					style="max-width: 25%;" th:src="@{'/uploads/clientes/' + ${cliente.fotoClientes}}"
+			<div class="card-body">
+				<img
+					th:if="${cliente.fotoClientes != null and #strings.length(cliente.fotoClientes) >0}"
+					class="img-thumbnail rounded float-left" style="max-width: 25%;"
+					th:src="@{'/uploads/clientes/' + ${cliente.fotoClientes}}"
 					th:alt="${cliente.fotoClientes}">
 
 				<ul class="list-group">
@@ -19,24 +21,28 @@
 					<li class="list-group-item" th:text="${cliente.direccion}"></li>
 					<li class="list-group-item" th:text="${cliente.creadoEn}"></li>
 				</ul>
-				
-				<table class ="table table-bordered table-striped ny-4">
-				<thead>
-				<tr>
-				<th>Folio</th>
-				<th>Descripción</th>
-				<th>Fecha</th>
-				<th>Total</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr th:each="factura: ${cliente.facturas}">
-				<td th:text="${factura55.id}"></td>
-				<td th:text="${factura55.descripcion}"></td>
-				<td th:text="${factura55.createdAt}"></td>
-				<td th:text="${factura55.total}"></td>
-				</tr>
-				</tbody>
+				<div th:if="${#lists.isEmpty(cliente.facturas)}"
+					class="alert alert-info my-4"
+					th:text="${cliente.nombre} + ' ' + ${cliente.apellido} + ' no tiene facturas'"></div>
+
+				<table th:if="${not #lists.isEmpty(cliente.facturas)}"
+					class="table table-bordered table-striped ny-4">
+					<thead class="thead-dark">
+						<tr>
+							<th>Folio</th>
+							<th>Descripción</th>
+							<th>Fecha</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="factura: ${cliente.facturas}">
+							<td th:text="${factura.id}"></td>
+							<td th:text="${factura.descripcion}"></td>
+							<td th:text="${factura.createdAt}"></td>
+							<td th:text="${factura.total}"></td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>
