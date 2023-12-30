@@ -23,8 +23,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="facturas")
-public class Factura implements Serializable{
+@Table(name="facturas22")
+public class Factura55 implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,14 +36,14 @@ public class Factura implements Serializable{
 	@Column(name="created_at")
 	private Date createdAt;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	private Cliente cliente;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="factura_id")
 	private List<ItemFactura> items;
 	
-	public Factura() {
+	public Factura55() {
 		this.items = new ArrayList<ItemFactura>();
 	}
 	
@@ -63,8 +63,16 @@ public class Factura implements Serializable{
 			total += items.get(i).calcularImporte();
 		}
 		return total;
+	}	
+
+	public List<ItemFactura> getItems() {
+		return items;
 	}
-	
+
+	public void setItems(List<ItemFactura> items) {
+		this.items = items;
+	}
+
 	private static final long serialVersionUID = 1L;
 
 }

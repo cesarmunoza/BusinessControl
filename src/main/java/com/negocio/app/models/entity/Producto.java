@@ -36,11 +36,11 @@ public class Producto implements Serializable{
 	@NotEmpty
 	private String descripcion;
 	
-	@NotEmpty
+	@NotNull
 	@Column(name="valor_compra")
 	private Double valorCompra;
 	
-	@NotEmpty
+	@NotNull
 	@Column(name="valor_venta")
 	private Double valorVenta;
 	

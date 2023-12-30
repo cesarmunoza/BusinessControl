@@ -1,21 +1,21 @@
 /*Populate productos table*/
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Pantalon', 'Pantalon de prueba', '10000', '10500', 11, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Camisa', 'Camisa de prueba', '5000', '5300', 13, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Chaqueta', 'Chaqueta de prueba', '5000', '5300', 13, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Short', 'Short de prueba', '5000', '5300', 13, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Jean', 'Jean de prueba', '5000', '5300', 13, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Gorra', 'Gorra de prueba', '5000', '5300', 13, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('camisilla', 'camisilla de prueba', '5000', '5300', 13, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Zapatos', 'Zapatos de prueba', '5000', '5300', 13, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Tenis', 'Tenis de prueba', '5000', '5300', 13, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Medias', 'Medias de prueba', '5000', '5300', 13, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Calzones', 'Calzones de prueba', '5000', '5300', 13, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Panties', 'Panties de prueba', '5000', '5300', 13, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Chaleco', 'Chaleco de prueba', '5000', '5300', 13, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Chanclas', 'Chanclas de prueba', '5000', '5300', 13, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Sudadera', 'Sudadera de prueba', '5000', '5300', 13, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Uniforme', 'Uniforme de prueba', '5000', '5300', 13, '2023-08-11', '');
-INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Pantaloneta', 'Pantaloneta de prueba', '5000', '5300', 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Pantalon', 'Pantalon de prueba', 10000, 10500, 11, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Camisa', 'Camisa de prueba', 5000, 5300, 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Chaqueta', 'Chaqueta de prueba', 5000, 5300, 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Short', 'Short de prueba', 5000, 5300, 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Jean', 'Jean de prueba', 5000, 5300, 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Gorra', 'Gorra de prueba', 5000, 5300, 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('camisilla', 'camisilla de prueba', 5000, 5300, 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Zapatos', 'Zapatos de prueba', 5000, 5300, 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Tenis', 'Tenis de prueba', 5000, 5300, 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Medias', 'Medias de prueba', 5000, 5300, 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Calzones', 'Calzones de prueba', 5000, 5300, 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Panties', 'Panties de prueba', 5000, 5300, 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Chaleco', 'Chaleco de prueba', 5000, 5300, 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Chanclas', 'Chanclas de prueba', 5000, 5300, 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Sudadera', 'Sudadera de prueba', 5000, 5300, 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Uniforme', 'Uniforme de prueba', 5000, 5300, 13, '2023-08-11', '');
+INSERT INTO productos(nombre, descripcion, valor_compra, valor_venta, cantidad, creado_en, foto_productos) VALUES('Pantaloneta', 'Pantaloneta de prueba', 5000, 5300, 13, '2023-08-11', '');
 
 
 /*Populate clientes table*/

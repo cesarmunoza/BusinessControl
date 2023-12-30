@@ -19,6 +19,25 @@
 					<li class="list-group-item" th:text="${cliente.direccion}"></li>
 					<li class="list-group-item" th:text="${cliente.creadoEn}"></li>
 				</ul>
+				
+				<table class ="table table-bordered table-striped ny-4">
+				<thead>
+				<tr>
+				<th>Folio</th>
+				<th>Descripción</th>
+				<th>Fecha</th>
+				<th>Total</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr th:each="factura: ${cliente.facturas}">
+				<td th:text="${factura55.id}"></td>
+				<td th:text="${factura55.descripcion}"></td>
+				<td th:text="${factura55.createdAt}"></td>
+				<td th:text="${factura55.total}"></td>
+				</tr>
+				</tbody>
+				</table>
 			</div>
 		</div>
 

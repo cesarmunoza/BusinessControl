@@ -57,17 +57,17 @@ public class Cliente implements Serializable{
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date creadoEn;
 	
-	@OneToMany(mappedBy = "cliente", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<Factura> facturas;
+	@OneToMany(mappedBy = "cliente", fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval = true)
+	private List<Factura55> facturas;
 	
 	public Cliente() {		
-		facturas = new ArrayList<Factura>();
+		facturas = new ArrayList<Factura55>();
 	}
 	
 	@Column(name="foto_clientes")
 	private String fotoClientes;
 	
-	public void addFactura(Factura factura) {
+	public void addFactura(Factura55 factura) {
 		facturas.add(factura);
 	}
 
