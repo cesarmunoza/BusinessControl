@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class UploadClientFileServiceImpl implements IUploadFileService {
 
-	private static final String UPLOADS_CLIENTES = "uploads/clientes";
+	private static final String UPLOADS_CLIENTES = "D:\\Estudio\\Java\\Spring\\WorkspaceChileno\\uploads\\clientes";
 
 	@Override
 	public Resource load(String filename) throws MalformedURLException {
