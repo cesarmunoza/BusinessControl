@@ -21,6 +21,7 @@
 							<th>Teléfono</th>
 							<th>Dirección</th>
 							<th>Fecha de creación</th>
+							<th>Crear factura</th>
 							<th>Editar</th>
 							<th>Eliminar</th>
 						</tr>
@@ -36,6 +37,7 @@
 							<td th:text="${cliente.telefono}"></td>
 							<td th:text="${cliente.direccion}"></td>
 							<td th:text="${cliente.creadoEn}"></td>
+							<td><a class="btn btn-success btn-xs" th:href="@{'/factura/form/' + ${cliente.idCliente}}" th:text="'Crear factura'"></a></td>
 							<td><a class="btn btn-primary btn-xs"
 								th:href="@{/formClients/}+${cliente.idCliente}" th:text="Editar"></a></td>
 							<td><a class="btn btn-danger btn-xs"

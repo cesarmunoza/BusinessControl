@@ -12,7 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.negocio.app.models.entity.Cliente;
 import com.negocio.app.models.entity.Factura;
-import com.negocio.app.models.entity.ItemFactura;
 import com.negocio.app.models.service.IClienteService;
 
 @Controller
@@ -31,7 +30,7 @@ public class FacturaController {
 		Cliente cliente = clienteService.findOne(clienteId);
 		if (cliente == null) {
 			flash.addFlashAttribute("error", "El cliente no existe en la base de datos");
-			return "redirect:/listar";
+			return "redirect:/listarClientes";
 		}
 		
 		Factura factura = new Factura();
@@ -40,7 +39,7 @@ public class FacturaController {
 		model.put("factura", factura);
 		model.put("titulo", "Crear Factura");
 		
-		return "factura/form";		
+		return "factura/formFactura";		
 	}
 
 }
