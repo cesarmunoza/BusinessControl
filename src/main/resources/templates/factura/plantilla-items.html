@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<table th:fragment="itemsFactura" class="d-none">
+		<!--display none, es una plantilla que queda oculta. Se lee con javascript y se reemplazan los valores -->
+		<tbody id="plantillaItemsFactura">
+			<tr id="row_{ID}">
+				<!-- esto es para cada línea de la factura. El ID se reemplaza con el id real del producto. Con jquery se puede eliminar la línea -->
+				<td class="d-none"><input type="hidden" value="{ID}"
+					name="item_id[]" /></td>
+				<td>{NOMBRE}</td>
+				<td>{PRECIO}</td>
+				<td><input type="number" value="1" name="cantidad[]"
+					id="cantidad_{ID}" class="form-control col-sm-4" /></td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>
