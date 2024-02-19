@@ -15,17 +15,17 @@
 					method="post">
 
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label" th:text="Cliente"></label>
+						<label class="col-sm-2 col-form-label" th:text="Cliente" for="cliente" ></label>
 						<div class="col-sm-6">
 							<input
 								th:value="${factura.cliente.nombre} + ' ' + ${factura.cliente.apellido}"
-								class="form-control" disabled="disabled" />
+								class="form-control" disabled="disabled" name="cliente" id="cliente"/>
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label" th:text="Descripción"></label>
+						<label class="col-sm-2 col-form-label" th:text="Descripción" for="descripcion"></label>
 						<div class="col-sm-6">
-							<input type="text" th:field="*{descripcion}" class="form-control" />
+							<input type="text" th:field="*{descripcion}" class="form-control" id="descripcion"/>
 						</div>
 					</div>
 
@@ -33,12 +33,12 @@
 						<label for="observacion" class="col-sm-2 col-form-label" th:text="Observación"></label>
 						<div class="col-sm-6">
 							<textarea th:field="*{observacion}" class="form-control" rows=""
-								cols=""></textarea>
+								cols="" id="observacion"></textarea>
 						</div>
 					</div>
 					
 					<div class="form-group row">
-						<label for="buscar_producto" class="col-sm-2 col-form-label" th:text="Buscar producto"></label>
+						<label for="buscar_producto" class="col-sm-2 col-form-label" th:text="'Buscar producto'"></label>
 						<div class="col-sm-6">
 							<input type="text" name="buscar_producto" id="buscar_producto" class="form-control" />
 						</div>
@@ -57,6 +57,6 @@
 
 	</div>
 	<footer th:replace="~{layout/layout :: footer}"></footer>
-	<script th:replace="factura/js/autocomplete-productos :: javascript"></script>
+	<script th:replace="~{factura/js/autocomplete-productos :: javascript}"></script>
 </body>
 </html>

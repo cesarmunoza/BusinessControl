@@ -8,13 +8,14 @@ $(document).ready(function(){
 	
 	$("#buscar_producto").autocomplete({
 		source: function(request, response){
-			$ajax({
+			$.ajax({
 				url: "/factura/cargar-productos/" + request.term,
 				dataType: "json",
 				data: {
 					term: request.term
 				},
 				success: function(data){
+					//Manejo exitoso de la respuesta del servidor
 					response($.map(data, function(item){
 						return{
 							value: item.id,
@@ -23,18 +24,20 @@ $(document).ready(function(){
 						};
 					}));
 				},
+				error: function(xhr, status, error){
+					//Manejo de errores en la solicitud Ajax:
+						console.error("Error en la solicitud Ajax: ", status, error);
+				}
 			});
 		},
-		select: function(event, ui){
+		select : function(event, ui){
 			$("#buscar_producto").val(ui.item.label);
 			
 			return false;
 		}
 	});
 	
-}
-		
-		);
+});
 </script>
 </body>
 </html>
