@@ -32,6 +32,12 @@ $(document).ready(function(){
 		},
 		select : function(event, ui){
 			//$("#buscar_producto").val(ui.item.label);
+			
+			if(itemsHelper.hasProducto(ui.item.value)){
+				itemsHelper.incrementaCantidad(ui.item.value, ui.item.precio);
+				return false;
+			}
+			
 			console.log('Producto seleccionado: ', ui.item);
 			var linea= $("#plantillaItemsFactura").html();
 			
@@ -54,6 +60,21 @@ var itemsHelper = {
 			console.log(this.value);
 			console.log('Calculando importe para: ',idProducto, valorVenta, cantidad);
 			$("#total_importe_"+ idProducto).html(parseInt(valorVenta) * parseInt(cantidad));
+		},
+		hasProducto: function(idProducto){
+			
+			var resultado = false;
+			$('input[name="item_id[]"]').each(function(){
+				if(parseInt(idProducto)== parseInt($(this).val())){
+					resultado=true;
+				}
+			});
+			return resultado;
+		},
+		incrementaCantidad: function(idProducto, valorVenta){
+			var cantidad = $("#cantidad_" + idProducto).val() ? parseInt($("#cantidad_" + idProducto).val()) : 0;
+			$("#cantidad_" + idProducto).val(++cantidad);
+			this.calcularImporte(idProducto, valorVenta, cantidad);
 		}
 		
 }
