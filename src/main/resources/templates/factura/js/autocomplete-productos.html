@@ -18,7 +18,7 @@ $(document).ready(function(){
 					//Manejo exitoso de la respuesta del servidor
 					response($.map(data, function(item){
 						return{
-							value: item.id,
+							value: item.idProducto,
 							label: item.nombre,
 							precio: item.valorVenta,
 						};
@@ -32,20 +32,31 @@ $(document).ready(function(){
 		},
 		select : function(event, ui){
 			//$("#buscar_producto").val(ui.item.label);
-			
+			console.log('Producto seleccionado: ', ui.item);
 			var linea= $("#plantillaItemsFactura").html();
 			
 			linea= linea.replace(/{ID}/g, ui.item.value);
 			linea= linea.replace(/{NOMBRE}/g, ui.item.label);
 			linea= linea.replace(/{VALORVENTA}/g, ui.item.precio);
+			console.log('Línea de factura: ', linea)
 			
 			$("#cargarItemProductos tbody").append(linea);
+			itemsHelper.calcularImporte(ui.item.value, ui.item.precio, 1);
 			
 			return false;
 		}
 	});
 	
 });
+
+var itemsHelper = {
+		calcularImporte:function(idProducto, valorVenta, cantidad){
+			console.log(this.value);
+			console.log('Calculando importe para: ',idProducto, valorVenta, cantidad);
+			$("#total_importe_"+ idProducto).html(parseInt(valorVenta) * parseInt(cantidad));
+		}
+		
+}
 </script>
 </body>
 </html>
