@@ -60,6 +60,7 @@ var itemsHelper = {
 			console.log(this.value);
 			console.log('Calculando importe para: ',idProducto, valorVenta, cantidad);
 			$("#total_importe_"+ idProducto).html(parseInt(valorVenta) * parseInt(cantidad));
+			this.calcularGranTotal();
 		},
 		hasProducto: function(idProducto){
 			
@@ -75,6 +76,18 @@ var itemsHelper = {
 			var cantidad = $("#cantidad_" + idProducto).val() ? parseInt($("#cantidad_" + idProducto).val()) : 0;
 			$("#cantidad_" + idProducto).val(++cantidad);
 			this.calcularImporte(idProducto, valorVenta, cantidad);
+		},
+		eliminarLineaFactura: function(idProducto){
+			$("#row_"+idProducto).remove();
+			this.calcularGranTotal();
+		},
+		calcularGranTotal: function(){
+			var total=0;
+			//Va a buscar en todos los spans de la factura donde el id del span contenga total_importe_
+			$('span[id^="total_importe_"]').each(function(){
+				total += parseInt($(this).html());
+			});
+			$('#gran_total').html(total);
 		}
 		
 }
