@@ -53,6 +53,11 @@ $(document).ready(function(){
 		}
 	});
 	
+	$("formFactura").submit(function(){
+		$("#plantillaItemsFactura").remove();
+		return false;
+	});
+	
 });
 
 var itemsHelper = {
