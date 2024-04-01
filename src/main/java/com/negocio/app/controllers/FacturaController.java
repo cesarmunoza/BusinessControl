@@ -64,8 +64,14 @@ public class FacturaController {
 			RedirectAttributes flash,
 			SessionStatus status) {
 		
+		log.info("Iniciando el procesamiento del formulario de facturas...");
+		
 		for (int i = 0; i < itemId.length; i++) {
 			Producto producto = clienteService.findProductoById(itemId[i]);
+			
+			log.debug("Procesando producto con ID: {}, Nombre: {}, Cantidad: {}", producto.getIdProducto(), producto.getNombre(), cantidad[i]);
+			
+			log.debug("ID: "+itemId[i].toString()+ ", cantidad: "+cantidad.toString());
 			
 			ItemFactura linea = new ItemFactura();
 			linea.setCantidad(cantidad[i]);
@@ -76,10 +82,16 @@ public class FacturaController {
 			log.info("ID: " + itemId[i].toString() + ", cantidad: " + cantidad[i].toString());
 		}
 		
+		log.info("Guardando la factura en la base de datos...");
+		
+		log.debug("Contenido de la factura antes de guardarla: {}", factura);
+		
 		clienteService.saveFactura(factura);
 		status.setComplete();
 		
 		flash.addFlashAttribute("Success", "Factura creada con éxito!");
+		
+		log.info("Redirigiendo al cliente...");
 		
 		return "redirect:/ver/" + factura.getCliente().getIdCliente();
 	}
