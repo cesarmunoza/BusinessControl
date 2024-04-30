@@ -59,14 +59,27 @@ public class FacturaController {
 	
 	@PostMapping("/formFactura")
 	public String guardar(Factura factura,
-			@RequestParam(name = "item_id[]", required =false) Long[] itemId,
+			@RequestParam(name = "item_id[]", required =false) /*Long[] itemId*/ String[] itemIdStrings,
 			@RequestParam(name = "cantidad[]", required = false) Integer[] cantidad,
 			RedirectAttributes flash,
 			SessionStatus status) {
 		
+		Long[] itemId = new Long[itemIdStrings.length];
+		
+		for (int i = 0; i < itemIdStrings.length; i++) {
+			try {
+				itemId[i] = Long.parseLong(itemIdStrings[i]);
+			} catch (NumberFormatException e) {				
+				flash.addFlashAttribute("error", "El ID del producto '" + itemIdStrings[i] + "' no es válido");				
+				log.info("El ID del producto '" + itemIdStrings[i] + "' no es válido");
+				return "redirect:/factura/form/" + factura.getCliente().getIdCliente();
+			}
+		}
+		
 		log.info("Iniciando el procesamiento del formulario de facturas...");
 		
-		for (int i = 0; i < itemId.length; i++) {
+		for (int i = 0; i < itemIdStrings.length; i++) {
+			itemId[i] = Long.parseLong(itemIdStrings[i]);
 			Producto producto = clienteService.findProductoById(itemId[i]);
 			
 			log.debug("Procesando producto con ID: {}, Nombre: {}, Cantidad: {}", producto.getIdProducto(), producto.getNombre(), cantidad[i]);
@@ -93,7 +106,7 @@ public class FacturaController {
 		
 		log.info("Redirigiendo al cliente...");
 		
-		return "redirect:/ver/" + factura.getCliente().getIdCliente();
+		return "redirect:/verCliente/" + factura.getCliente().getIdCliente();
 	}
 
 }
