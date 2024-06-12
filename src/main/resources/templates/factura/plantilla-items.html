@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
+<!--	Estos dos renglones son para ver si aparecen los valores en el html-->
+	<span th:text="${itemId}"></span>	
+	<input type="hidden" 	th:value="${item.id}"/>
+	
+	<p>El valor de item.id es: <span th:text="${item.id}"></span></p>
 	<table th:fragment="itemsFactura" class="d-none">
 		<!--display none, es una plantilla que queda oculta. Se lee con javascript y se reemplazan los valores -->
 		<tbody id="plantillaItemsFactura">
 			<tr id="row_{ID}">
 				<!-- esto es para cada línea de la factura. El ID se reemplaza con el id real del producto. Con jquery se puede eliminar la l�nea -->
-				<td class="d-none"><input type="hidden"  value="{ID}"
-					name="item_id[]" /></td>
+				<td class="d-none"><input type="hidden" value="${ID}" name="item_id[]" /></td>
 				<td>{NOMBRE}</td>
 				<td>{VALORVENTA}</td>
 				<td><input type="number" value="1" name="cantidad[]"

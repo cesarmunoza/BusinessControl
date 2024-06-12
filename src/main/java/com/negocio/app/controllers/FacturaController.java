@@ -68,6 +68,7 @@ public class FacturaController {
 		
 		for (int i = 0; i < itemIdStrings.length; i++) {
 			try {
+				System.out.println("---"+itemIdStrings[i]);
 				itemId[i] = Long.parseLong(itemIdStrings[i]);
 			} catch (NumberFormatException e) {				
 				flash.addFlashAttribute("error", "El ID del producto '" + itemIdStrings[i] + "' no es válido");				
