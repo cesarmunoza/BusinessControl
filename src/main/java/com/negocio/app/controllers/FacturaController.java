@@ -59,29 +59,49 @@ public class FacturaController {
 	
 	@PostMapping("/formFactura")
 	public String guardar(Factura factura,
-			@RequestParam(name = "item_id[]", required =false) /*Long[] itemId*/ String[] itemIdStrings,
+			@RequestParam(name = "item_id[]", required =false) Long[] itemId,
 			@RequestParam(name = "cantidad[]", required = false) Integer[] cantidad,
 			RedirectAttributes flash,
 			SessionStatus status) {
 		
-		Long[] itemId = new Long[itemIdStrings.length];
+//		Long[] itemId = new Long[itemIdStrings.length];
 		
-		for (int i = 0; i < itemIdStrings.length; i++) {
+		for (int i = 0; i < itemId.length; i++) {
 			try {
-				System.out.println("---"+itemIdStrings[i]);
-				itemId[i] = Long.parseLong(itemIdStrings[i]);
+				System.out.println("---"+itemId[i]);
+//				itemId[i] = Long.parseLong(itemId[i]);
 			} catch (NumberFormatException e) {				
-				flash.addFlashAttribute("error", "El ID del producto '" + itemIdStrings[i] + "' no es válido");				
-				log.info("El ID del producto '" + itemIdStrings[i] + "' no es válido");
+				flash.addFlashAttribute("error", "El ID del producto '" + itemId[i] + "' no es válido");				
+				log.info("El ID del producto '" + itemId[i] + "' no es válido");
 				return "redirect:/factura/form/" + factura.getCliente().getIdCliente();
 			}
 		}
 		
 		log.info("Iniciando el procesamiento del formulario de facturas...");
 		
-		for (int i = 0; i < itemIdStrings.length; i++) {
-			itemId[i] = Long.parseLong(itemIdStrings[i]);
+		if (itemId == null || itemId.length == 0) {
+			flash.addFlashAttribute("error", "La factura debe tener al menos un producto.");
+			return "redirect:/factura/form/" + factura.getCliente().getIdCliente();
+		}
+		
+		Cliente cliente = clienteService.findOne(factura.getCliente().getIdCliente());
+	    if (cliente == null) {
+	        flash.addFlashAttribute("error", "El cliente no existe en la base de datos.");
+	        return "redirect:/listarClientes";
+	    }
+	    
+	    factura.setCliente(cliente);
+
+	    log.info("Iniciando el procesamiento del formulario de facturas...");
+		
+		for (int i = 0; i < itemId.length; i++) {
+//			itemId[i] = Long.parseLong(itemIdStrings[i]);
 			Producto producto = clienteService.findProductoById(itemId[i]);
+			
+			if (producto == null) {
+	            flash.addFlashAttribute("error", "El producto con ID " + itemId[i] + " no existe.");
+	            return "redirect:/factura/form/" + factura.getCliente().getIdCliente();
+	        }
 			
 			log.debug("Procesando producto con ID: {}, Nombre: {}, Cantidad: {}", producto.getIdProducto(), producto.getNombre(), cantidad[i]);
 			

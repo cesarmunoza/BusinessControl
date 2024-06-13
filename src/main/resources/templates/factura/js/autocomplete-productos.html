@@ -41,28 +41,55 @@ $(document).ready(function(){
 			console.log('Producto seleccionado: ', ui.item);
 			var linea= $("#plantillaItemsFactura").html();
 			
+			//Logs para verificar la plantilla original y después del reemplazo
+			// Antes del reemplazo
+			console.log('Línea de factura antes del reemplazo: ', linea)
+			
 			linea= linea.replace(/{ID}/g, ui.item.value);
 			linea= linea.replace(/{NOMBRE}/g, ui.item.label);
 			linea= linea.replace(/{VALORVENTA}/g, ui.item.precio);
-			console.log('Línea de factura: ', linea)
+			console.log('Línea de factura: ', linea);
+			// Después del reemplazo
+			console.log('Línea de factura después del reemplazo: ', linea)
 			
 			$("#cargarItemProductos tbody").append(linea);
 			itemsHelper.calcularImporte(ui.item.value, ui.item.precio, 1);
+			
+			//Verificar si la línea se añadió correctamente al DOM
+			console.log('contenido del tbody después de añadir la línea: ', $("#cargarItemProductos tbody").html());
 			
 			return false;
 		}
 	});
 	
-	$("formFactura").submit(function(){
-		console.log(ui.item);
+	$("#formFactura").submit(function(e){
+		console.log('Enviando formulario...');
+		//Remueve la plantilla oculta si existe
 		$("#plantillaItemsFactura").remove();
-		return;
+		
+		//Verificar que no queden placeholders en los campos ocultos
+		let valid = true;
+		$('input[name="item_id[]"]').each(function(){
+			console.log('Valor del input item_id: ', $this.val());
+					if ($(this).val() === "{ID}") {
+						console.error("Placeholder {ID} encontrado, formulario no enviado.");
+						valid = false;
+					}
+				});
+				if (!valid) {
+					e.preventDefault();
+					alert("Formulario no enviado debido a placeholders no reemplazados.");
+					return false;
+				}
+		console.log(ui.item);
+		$("#plantillaItemsFactura").remove(); // Esto es para asegurarse de que no envía la plantilla oculta
+		return true; //Permitir el envío del formulario
 	});
 	
 });
 
 var itemsHelper = {
-		calcularImporte:function(idProducto, valorVenta, cantidad){
+		calcularImporte: function(idProducto, valorVenta, cantidad){
 			console.log(this.value);
 			console.log('Calculando importe para: ',idProducto, valorVenta, cantidad);
 			$("#total_importe_"+ idProducto).html(parseInt(valorVenta) * parseInt(cantidad));

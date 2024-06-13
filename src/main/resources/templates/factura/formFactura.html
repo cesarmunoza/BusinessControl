@@ -11,7 +11,7 @@
 				<a class="btn btn-light btn-xs" th:href="@{'/verCliente/' + ${factura.cliente.idCliente}}" th:text="'&laquo; Volver'"></a>
 				</h4>
 
-				<form th:action="@{/factura/formFactura}" th:object="${factura}"
+				<form id="formFactura" th:action="@{/factura/formFactura}" th:object="${factura}"
 					method="post">
 
 					<div class="form-group row">
